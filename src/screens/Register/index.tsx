@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Alert,   
   View, 
@@ -10,6 +10,8 @@ import {
 
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import { useForm } from 'react-hook-form';
 
 import { InputForm } from '../../components/Form/InputForm';
@@ -37,6 +39,8 @@ const schema = Yup.object().shape({
 });
 
 export function Register() {
+  const dataKey = '@gofinances:transactions';
+
   const [transactionType, setTransactionType] = useState('');
   const [categoryModalOpen, setCategoryModalOpen] = useState(false);
 
@@ -58,18 +62,41 @@ export function Register() {
   function handleOpenSelectCategoryModal(){ setCategoryModalOpen(true); }
   function handleCloseSelectCategoryModal(){ setCategoryModalOpen(false);}
   
-  function handleRegister(form: FormData){
+  async function handleRegister(form: FormData){
     if(!transactionType) return Alert.alert('Selecione o tipo da transação');
     if(category.key === 'category') return Alert.alert('Selecione a categoria');
 
-    const data = { 
+    const newTransaction = { 
       name: form.name,
       amount: form.amount,
       transactionType,
       category: category.key  
     }
-    console.log(data);
+    try {
+      const data = await AsyncStorage.getItem(dataKey);
+      const currentData = data ? JSON.parse(data) : [];
+
+      const dataFormatted = [
+        //...currentData,
+        newTransaction
+      ];
+
+      await AsyncStorage.setItem(dataKey, JSON.stringify(dataFormatted));
+
+    } catch(error){
+      console.log(error);
+      Alert.alert('Não foi possível salvar');
+    }
   }
+
+  useEffect(() => {
+    async function loadData(){
+      const dataKey = '@gofinances:transactions';
+      const response = await AsyncStorage.getItem(dataKey);
+      console.log(JSON.parse(response!));
+    }
+    loadData();
+  },[]);
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>

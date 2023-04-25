@@ -5,7 +5,9 @@ import {
   Text, 
   Image,
   ScrollView,
-  FlatList
+  FlatList,
+  Alert,
+  TouchableOpacity
 } from 'react-native';
 
 import { styles } from './styles';
@@ -64,7 +66,9 @@ export function Dashboard() {
             <Text style={styles.userName}>Gabriel</Text>
           </View>
         </View>
-        <Icon name="power" style={styles.Icon}/>
+        <TouchableOpacity style={styles.logoutButton}>
+          <Icon name="power" style={styles.Icon}/>
+        </TouchableOpacity>
       </View>
       </View>
       <ScrollView 

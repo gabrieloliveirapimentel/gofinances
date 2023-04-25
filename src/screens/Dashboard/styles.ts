@@ -47,6 +47,9 @@ export const styles = StyleSheet.create({
     fontFamily: theme.fonts.BOLD,
     fontSize: RFValue(18)
   },
+  logoutButton: {
+    
+  },
   Icon: {
     color: theme.colors.SECUNDARY,
     fontSize: RFValue(24),
@@ -68,5 +71,6 @@ export const styles = StyleSheet.create({
   },
   transactionList: {
     paddingBottom: getBottomSpace() 
-  }
+  },
+
 });
