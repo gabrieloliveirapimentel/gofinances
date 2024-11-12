@@ -17,6 +17,17 @@ Este é um aplicativo para lhe ajudar a controlar suas finanças, permitindo que
 - Express
 - Postgres
 
+## 💻 Instruções de uso
+Utilize o **yarn** ou o **npm install** para instalar as dependências do projeto.
+Em seguida, inicie o projeto:
+
+```
+$ git clone https://github.com/gabrieloliveirapimentel/gofinances.git
+$ cd gofinances
+$ expo install
+$ expo start
+```
+
 ## 👨🏻‍💻 Autor
 <img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/63811493?v=4" width="100px;" alt=""/>
 Nome: Gabriel Oliveira Pimentel
